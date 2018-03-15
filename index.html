@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body {
+				font: 14px/1.43 "Helvetica Neue", Tahoma, "Microsoft YaHei", Arial;
+				color: #253443;
+				margin: 0 auto;
+				padding: 0 auto;
+			}
+			
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+				background: #FFF;
+				font-size: 12px;
+				width: 100%;
+				border: 1;
+				width: 100%;
+			}
+			
+			thead {
+				display: table-header-group;
+				vertical-align: middle;
+				border-color: inherit;
+			}
+			
+			tr {
+				display: table-row;
+				vertical-align: inherit;
+				border-color: inherit;
+			}
+			
+			table thead tr {
+				background-color: #E6F0FF;
+			}
+			
+			table thead tr th {
+				padding: 5px 8px;
+				font-weight: normal;
+				color: #999;
+				border-bottom: 1px solid #B50802;
+				vertical-align: bottom;
+				line-height: 20px;
+			}
+			
+			tbody {
+				display: table-row-group;
+				vertical-align: middle;
+				border-color: inherit;
+			}
+			
+			table tbody tr td {
+				padding: 8px;
+				border-top: 0px;
+				border-bottom: 1px solid #DDD;
+				vertical-align: middle;
+				line-height: 20px;
+			}
+			
+			table tfoot tr td {
+				width: 100%;
+				background-color: #F4F4F4;
+				height: 20px;
+				padding: 8px 0px;
+				color: #000;
+			}
+			
+			table tfoot tr td input {
+				width: 30px;
+			}
+			
+			table tfoot tr td span {
+				display: inline-block;
+				cursor: pointer;
+				height: 20px;
+				padding: 0 10px;
+			}
+			s {
+				text-decoration: none;				
+			}
+			td.action s {
+				cursor: pointer;
+				margin-right: 10px;
+			}
+			td.action s:hover {
+				text-decoration: underline;
+				color: #B50802;
+			}
+			.mouseover {
+				background-color: #EAF2FF;
+				color: #000;
+			}
+		</style>
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/table.js"></script>
+	</head>
+
+	<body>
+		<table id="dg"></table>
+		<script>
+			$(function() {
+				$("#dg").grid({
+					id: "dg",
+					url: "data.json",
+					columns: [
+						{
+							field: 'ck',
+							width: 50,
+							align: 'center',
+							show: true
+						},
+						{
+							field: 'ID',
+							title: '编号',
+							width: 100,
+							align: 'center'
+						},
+						{
+							field: 'name',
+							title: '名称',
+							width: 250,
+							align: 'left'
+						},
+						{
+							field: 'descrtion',
+							title: '描述',
+							width: 250,
+							align: 'left'
+						},
+						{
+							field: 'Price',
+							title: '价格',
+							width: 100,
+							align: 'left'
+						},
+						{
+							field: 'handle',
+							title: '操作',
+							width: 100,
+							align: 'left',
+							show: true
+						}
+					],
+					isoddcolor: false,
+					//searchnation: true,
+					pagination: true,					
+					pagesize: 12,
+					pagesizelist:[3,6,9,12],
+					sort:true
+					
+				});
+			});
+		</script>
+	</body>
+
+</html>
