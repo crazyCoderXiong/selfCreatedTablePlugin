@@ -111,47 +111,51 @@
 							field: 'ck',
 							width: 50,
 							align: 'center',
-							show: true
+							show: true,
+							sort: false
 						},
 						{
 							field: 'ID',
 							title: '编号',
 							width: 100,
-							align: 'center'
+							align: 'center',
+							sort: true
 						},
 						{
 							field: 'name',
 							title: '名称',
 							width: 250,
-							align: 'left'
+							align: 'left',
+							sort: true
 						},
 						{
 							field: 'descrtion',
 							title: '描述',
 							width: 250,
-							align: 'left'
+							align: 'left',
+							sort: true
 						},
 						{
-							field: 'Price',
+							field: 'Price*',
 							title: '价格',
 							width: 100,
-							align: 'left'
+							align: 'left',
+							sort: true
 						},
 						{
 							field: 'handle',
 							title: '操作',
 							width: 100,
 							align: 'left',
-							show: true
+							show: true,
+							sort: false
 						}
 					],
 					isoddcolor: false,
 					//searchnation: true,
 					pagination: true,					
 					pagesize: 12,
-					pagesizelist:[3,6,9,12],
-					sort:true
-					
+					pagesizelist:[3,6,9,12]					
 				});
 			});
 		</script>

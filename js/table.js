@@ -14,7 +14,7 @@
 				//是否隔行变色
 				isoddcolor: false,
 				//是否搜索栏
-				searchnation: false,
+				//searchnation: false,
 				//分页列表
 				pagesizelist: [6, 12],
 				//页显示
@@ -77,7 +77,7 @@
 			//初始化元素
 			InitializeElement: function() {
 				//var id = this.settings.id;
-				$("#" + this._id).empty().append("<thead><tr></tr></thead><tbody></tbody><TFOOT></TFOOT>");
+				$("#" + this._id).empty().append("<thead><tr></tr></thead><tbody></tbody><tfoot></tfoot>");
 			},
 			//循环添加表头
 			createTableHead: function() {
@@ -102,6 +102,9 @@
 				var json = this.getAjaxDate(_op.settings.url, null);
 				//总页数=向上取整(总数/每页数)
 				_op.settings.totalpage = Math.ceil((json.total) / _op.settings.pagesize);
+				if($('#countPage')) {
+					$('#countPage').html('第<font id="currentpageIndex">1</font>/' + _op.settings.totalpage + '页')
+				}
 				//开始页数
 				var startPage = _op.settings.pagesize * (pn - 1);
 				//结束页数
@@ -120,7 +123,15 @@
 								rowsdata += '<td width="' + columns[colindex].width + '" align="' + columns[colindex].align + '" class="action"><s>查看</s><s>编辑</s><s>删除</s></td>';
 							}
 						} else {
-							rowsdata += '<td width=' + columns[colindex].width + ' align=' + columns[colindex].align + '>' + json.rows[row][columns[colindex].field] + '</td>';
+							//'.'代表是一个数组  field值无后缀代表是一个普通数据类型， '*'代表是对象数据类型
+							if(columns[colindex].field.lastIndexOf('.') != -1) {
+								rowsdata += '<td width=' + columns[colindex].width + ' align=' + columns[colindex].align + '>' + json.rows[row][columns[colindex].field.substr(0, columns[colindex].field.lastIndexOf('.'))][0] + '</td>';
+							} else if(columns[colindex].field.lastIndexOf('*') != -1) {
+								rowsdata += '<td width=' + columns[colindex].width + ' align=' + columns[colindex].align + '>' + json.rows[row][columns[colindex].field.substr(0, columns[colindex].field.lastIndexOf('*'))].current + '</td>';
+							} else {
+								rowsdata += '<td width=' + columns[colindex].width + ' align=' + columns[colindex].align + '>' + json.rows[row][columns[colindex].field] + '</td>';
+							}
+
 						}
 
 					}
@@ -257,16 +268,7 @@
 			//给表头绑定点击事件
 			registerThEvent: function() {
 				$("table[id=" + this._id + "] thead th").click(function() {
-					if(_op.settings.sort == true) {
-						var idx1, idx2;
-						$.each(_op.settings.columns, function(i, e) {
-							if(e.field == 'ck') {
-								idx1 = i;
-							} else if(e.field == 'handle') {
-								idx2 = i;
-							}
-						})
-						if($(this).index() == idx1 || $(this).index() == idx2) return
+					if(_op.settings.columns[$(this).index()].sort) {
 						_op.sort($(this).index());
 					}
 				})
